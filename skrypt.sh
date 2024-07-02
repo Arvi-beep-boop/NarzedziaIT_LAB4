@@ -3,17 +3,21 @@
 if [ "$1" == "--date" ]; then
     date
 elif [ "$1" == "--logs" ]; then
-# Tworzenie 100 plików logx.txt
-for i in {1..100}
-do
-    filename="log${i}.txt"
-    current_date=$(date)
-    # Zapisanie informacji do pliku
-    echo "Nazwa pliku: $filename" > $filename
-    echo "Nazwa skryptu: $0" >> $filename
-    echo "Data: $current_date" >> $filename
-done
-echo "Utworzono 100 plików logx.txt"
+  if [ -n "$2" ]; then
+        num_files=$2
+    else
+        num_files=100
+    fi
+    for i in $(seq 1 $num_files)
+    do
+        filename="log${i}.txt"
+        current_date=$(date)
+        # Zapisanie informacji do pliku
+        echo "Nazwa pliku: $filename" > $filename
+        echo "Nazwa skryptu: $0" >> $filename
+        echo "Data: $current_date" >> $filename
+    done
+    echo "Utworzono $num_files plików logx.txt"
 else
-    echo "Wrong arguments"
+    echo "Nieprawidłowe argumenty"
 fi
