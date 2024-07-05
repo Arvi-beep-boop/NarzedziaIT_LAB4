@@ -1,4 +1,5 @@
 #!/bin/bash
+REPO_URL="https://github.com/Arvi-beep-boop/NarzedziaIT_LAB4.git"
 
 if [ "$1" == "--date" ] || [ "$1" == "-d" ]; then
     date
@@ -22,6 +23,13 @@ elif [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo "--date wyświetli aktualną datę"
     echo "--logs utworzy 100 plików logx.txt"
     echo "--logs <number> utworzy daną liczbę plików log.txt"
+elif [ "$1" == "--init" ]; then
+    git clone "$REPO_URL"
+    repo_name=$(basename "$REPO_URL" .git)
+    repo_path=$(pwd)/$repo_name
+    export PATH=$PATH:$repo_path
+    echo "Repozytorium zostało sklonowane do $repo_path"
+    echo "Dodano $repo_path do zmiennej PATH"
 else
     echo "Nieprawidłowe argumenty"
 fi
