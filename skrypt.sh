@@ -19,6 +19,20 @@ elif [ "$1" == "--logs" ] || [ "$1" == "-l" ]; then
         echo "Data: $current_date" >> $filename
     done
     echo "Utworzono $num_files plików logx.txt"
+elif [ "$1" == "--error" ] || [ "$1" == "-e" ]; then
+  if [ -n "$2" ]; then
+        num_errors=$2
+    else
+        num_errors=100
+    fi
+    for i in $(seq 1 $num_errors)
+    do
+        filename="error${i}.txt"
+        dirname="error${i}"
+        mkdir -p $dirname
+        touch $dirname/$filename
+    done
+    echo "Utworzono $num_errors plików error"
 elif [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo "--date wyświetli aktualną datę"
     echo "--logs utworzy 100 plików logx.txt"
